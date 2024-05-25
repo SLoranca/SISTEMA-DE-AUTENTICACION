@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SAAUR | Recuperar Cuenta</title>
+    <meta name="description" content="Seven admin dashboard live demo. Check out all the features of the admin panel. Light &amp; dark skins. A large number of settings, additional services and widgets." />
+    <meta name="keywords" content="Seven, bootstrap, bootstrap 5, dmin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Seven HTML Free - Bootstrap 5 HTML Multipurpose Light/Dark Admin Dashboard Theme" />
+    <meta property="og:url" content="https://keenthemes.com/products/seven-html-pro" />
+    <meta property="og:site_name" content="Keenthemes | Seven HTML Free" />
+    <link rel="canonical" href="Https://preview.keenthemes.com/seven-html-free" />
+    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" />
+    <link href="~/lib/sweet-alert/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/css/animate.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<!--begin::Body-->
+<body id="kt_body" class="bg-body">
+    <div class="d-flex flex-row">
+        <div class="d-flex flex-column flex-row-fluid">
+            <div class="d-flex flex-column-auto h-100px flex-center mb-5" style="background: url('../assets/media/patterns/pattern-1.jpg')">
+                <h2 class="text-white">Recuperar Cuenta</h2>
+            </div>
+            <div class="d-flex flex-row flex-column-fluid">
+                <div class="d-flex flex-row-fluid flex-center">
+                    <div class="card w-50 shadow-sm animated fadeInDown">
+                        <div class="card-header">
+                            <span class="card-title">¿Olvido su contraseña?, Ingrese su correo para recuperar su cuenta</span>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" id="Form" novalidate>
+                                <div class="row mb-5">
+                                    <div class="col-lg-12">
+                                        <label class="form-label">Correo electrónico</label>
+                                        <input type="email" placeholder="Dirección de correo electrónico" class="form-control text-lowercase" onkeyup="tools.toLower(this);" maxlength="255" name="destination_email" id="txtEmail" autocomplete="off" required />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row text-center">
+                                <div class="col-lg-12">
+                                    <a href="@Url.Action("Login","Account")" class="btn btn-sm btn-secondary mb-3">Volver</a>
+                                    <button type="button" onclick="recovery_account();" class="btn btn-sm btn-primary mb-3">Recuperar Cuenta</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/sweet-alert/sweetalert2.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/_config.js"></script>
+    <script src="~/js/_tools.js"></script>
+    <script src="~/js/account/recovery.js"></script>
+</body>
+</html>

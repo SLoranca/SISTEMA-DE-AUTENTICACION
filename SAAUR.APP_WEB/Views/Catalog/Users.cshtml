@@ -1,0 +1,292 @@
+﻿@{
+	ViewData["Title"] = "USUARIOS";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-xl-12">
+		<div class="card card-xl-stretch mb-2">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="input-group">
+							<input type="text" class="form-control form-control-sm text-uppercase" placeholder="Buscar..." maxlength="15" id="txtSearch" />
+							<button class="btn btn-primary btn-sm" onclick="initForm();"><i class="bi bi-plus-lg"></i>Nuevo</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4">
+		<div class="card card-xl-stretch mb-xl-8">
+			<div class="card-body">
+				<div class="me-7 mb-4 text-center">
+					<div class="symbol symbol-100px symbol-lg-150px symbol-fixed position-relative">
+						<img id="imgUser" alt="image">
+						<div class="row text-center mt-6">
+							<div class="col-12">
+								<h3 class="fs-5 text-muted" id="lblNameUser">[USUARIO]</h3>
+							</div>
+							<div class="form-text">Tipos de archivos permitidos: jpg, jpeg.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-8">
+		<div class="card card-xl-stretch mb-xl-8">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12">
+						<span class="text-muted">
+							Si desea actualizar su foto, de click en el icono <i class="fa fa-camera"></i>. Sobre el registro que quiere actualizar la foto.
+						</span>
+					</div>
+				</div>
+				<div class="table table-responsive scroll hover-scroll-y h-300px p-3">
+					<table class="table table-hover table-row-bordered" id="tblList">
+						<thead>
+							<tr class="fw-bold fs-6 text-gray-800">
+								<th style="width:10%">Foto</th>
+								<th style="width:60%">Información del Usuario</th>
+								<th style="width:30%" class="text-end">Acción</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-user" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModal">-</h2>
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+					<span class="svg-icon svg-icon-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+								  transform="rotate(-45 6 17.3137)" fill="black" />
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+								  fill="black" />
+						</svg>
+					</span>
+				</div>
+			</div>
+			<div class="modal-body">
+				<form class="form" id="FormUserInsert" novalidate>
+					<div class="row mb-3">
+						<div class="col-4">
+							<label class="form-label">Rol</label>
+							<select class="form-control" id="cboRolesInsert"></select>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-4">
+							<label class="form-label">Nombre</label>
+							<input type="text" class="form-control letter" placeholder="Nombre(s)" autocomplete="off" name="name" id="txtName" required />
+						</div>
+						<div class="col-4">
+							<label class="form-label">Apellido paterno</label>
+							<input type="text" class="form-control letter" placeholder="Primer apellido" autocomplete="off" name="p_last_name" id="txtPLastName" required />
+						</div>
+						<div class="col-4">
+							<label class="form-label">Apellido materno</label>
+							<input type="text" class="form-control letter" placeholder="Segundo apellido" autocomplete="off" name="m_last_name" id="txtMLastName" required />
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-8">
+							<label class="form-label">Correo electrónico</label>
+							<input type="email" class="form-control text-lowercase" onkeyup="tools.toLower(this);" placeholder="Dirección de correo electrónico" autocomplete="off" maxlength="255" name="email" id="txtEmail" required />
+						</div>
+						<div class="col-4">
+							<label class="form-label">Contraseña</label>
+							<input type="text" class="form-control" name="password" id="txtPassword" autocomplete="off"
+								   required />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end py-2">
+				<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+					<i class='bi bi-x-lg fs-2'></i> Cerrar
+				</button>
+				<button type="button" class="btn btn-sm btn-primary" onclick="insert();">
+					<i class='bi bi-check-lg fs-2'></i>
+					Guardar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-photo" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered mw-900px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModalPhoto">-</h2>
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+					<span class="svg-icon svg-icon-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+								  transform="rotate(-45 6 17.3137)" fill="black" />
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+								  fill="black" />
+						</svg>
+					</span>
+				</div>
+			</div>
+			<div class="modal-body">
+				<form class="form" id="FormPhoto" enctype="multipart/form-data">
+					<div class="row mb-2">
+						<div class="col-12">
+							<input type="file" class="form-control" name="photo" id="txtPhoto" required />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end py-2">
+				<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar </button>
+				<button type="button" class="btn btn-sm btn-primary" onclick="uploadImg();"><i class='bi bi-check-lg fs-2'></i> Cambiar Foto </button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-user-edit" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModalEdit">-</h2>
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+					<span class="svg-icon svg-icon-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+								  transform="rotate(-45 6 17.3137)" fill="black" />
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+								  fill="black" />
+						</svg>
+					</span>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div id="kt_account_settings_signin_method" class="collapse show">
+					<div class="card-body p-9">
+						<input type="text" class="form-control d-none" id="txtId" required readonly />
+						@* FORM-INFO-GRAL *@
+						<div class="d-flex flex-wrap align-items-center">
+							<div id="content-info-gral-label" class="">
+								<div class="fs-6 fw-bold mb-1">Información General</div>
+								<div class="fw-semibold text-gray-600" id="lblEditUser"></div>
+							</div>
+							<div id="content-info-gral-form" class="flex-row-fluid d-none animated fadeInDown">
+								<form id="FormInfoGralEdit" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate>
+									<div class="row mb-3">
+										<div class="col-4">
+											<label class="form-label">Rol</label>
+											<select class="form-control" id="cboRolesEdit"></select>
+										</div>
+									</div>
+									<div class="row mb-6">
+										<div class="col-4">
+											<label class="form-label">Nombre</label>
+											<input type="text" class="form-control letter" placeholder="Nombre(s)" autocomplete="off" name="name_edit" id="txtNameEdit" required />
+										</div>
+										<div class="col-4">
+											<label class="form-label">Apellido paterno</label>
+											<input type="text" class="form-control letter" placeholder="Primer apellido" autocomplete="off" name="p_last_name_edit" id="txtPLastNameEdit" required />
+										</div>
+										<div class="col-4">
+											<label class="form-label">Apellido materno</label>
+											<input type="text" class="form-control letter" placeholder="Segundo apellido" autocomplete="off" name="m_last_name_edit" id="txtMLastNameEdit" required />
+										</div>
+									</div>
+									<div class="d-flex">
+										<button onclick="updInfoGral();" type="button" class="btn btn-primary  me-2 px-6">Actualizar</button>
+										<button onclick="closeFormInfoGral();" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancelar</button>
+									</div>
+								</form>
+							</div>
+							<div id="content-info-gral-btn" class="ms-auto">
+								<button onclick="openFormInfoGral();" class="btn btn-light btn-active-light-primary">Editar Información General</button>
+							</div>
+						</div>
+						@* FORM-EMAIL *@
+						<div class="separator separator-dashed my-6"></div>
+						<div class="d-flex flex-wrap align-items-center">
+							<div id="content-email-label" class="">
+								<div class="fs-6 fw-bold mb-1">Correo electrónico</div>
+								<div class="fw-semibold text-gray-600" id="lblEditEmail"></div>
+							</div>
+							<div id="content-email-form" class="flex-row-fluid d-none animated fadeInDown">
+								<form id="FormEmailEdit" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+									<div class="row mb-6">
+										<div class="col-lg-12 mb-4 mb-lg-0">
+											<div class="fv-row mb-0 fv-plugins-icon-container">
+												<label for="emailaddress" class="form-label fs-6 fw-bold mb-3">Correo electrónico</label>
+												<input type="email" class="form-control" id="txtEmailEdit" placeholder="Correo electrónico" name="emailaddress" required />
+											</div>
+										</div>
+									</div>
+									<div class="d-flex">
+										<button onclick="updEmail();" type="button" class="btn btn-primary  me-2 px-6">Actualizar</button>
+										<button onclick="closeFormEmail();" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancelar</button>
+									</div>
+								</form>
+							</div>
+							<div id="content-email-btn" class="ms-auto">
+								<button onclick="openFormEmail();" class="btn btn-light btn-active-light-primary">Editar Correo Electrónico</button>
+							</div>
+						</div>
+						@* FORM-PASSWORD *@
+						<div class="separator separator-dashed my-6"></div>
+						<div class="d-flex flex-wrap align-items-center mb-10">
+							<div id="content-password-label" class="">
+								<div class="fs-6 fw-bold mb-1">Password</div>
+								<div class="fw-semibold text-gray-600">************</div>
+							</div>
+							<div id="content-password-form" class="flex-row-fluid d-none animated fadeInDown">
+								<form id="FrmPassword" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+									<div class="row mb-6">
+										<div class="col-lg-12 mb-4 mb-lg-0">
+											<div class="fv-row mb-0 fv-plugins-icon-container">
+												<label for="newpassword" class="form-label fs-6 fw-bold mb-3">Contraseña</label>
+												<input type="text" class="form-control" placeholder="**********" name="new_password" id="txtNewPassword" autocomplete="off" required />
+											</div>
+										</div>
+									</div>
+									<div class="d-flex">
+										<button onclick="updPassword();" type="button" class="btn btn-primary me-2 px-6">Actualizar</button>
+										<button onclick="closeFormPassword();" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancelar</button>
+									</div>
+								</form>
+							</div>
+							<div id="content-password-btn" class="ms-auto">
+								<button onclick="openFormPassword();" class="btn btn-light btn-active-light-primary">Editar Contraseña</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer justify-content-end py-2">
+				<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar </button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/js/cats/users.js"></script>
+	<script type="text/javascript">
+		document.onreadystatechange = function () {
+			if (document.readyState == "complete") {
+				init();
+			}
+		}
+	</script>
+}

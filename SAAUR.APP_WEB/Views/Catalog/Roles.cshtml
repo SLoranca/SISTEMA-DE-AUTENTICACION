@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "ROLES";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card card-xl-stretch mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm text-uppercase" placeholder="Buscar..." maxlength="15" id="txtSearch" />
+                            <button class="btn btn-primary btn-sm" onclick="initForm();"><i class="bi bi-plus-lg"></i>Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card card-xl-stretch mb-xl-8">
+            <div class="card-body">
+                <div class="table table-responsive scroll hover-scroll-y h-300px p-3">
+                    <table class="table table-hover table-row-bordered" id="tblList">
+                        <thead>
+                            <tr class="fw-bold fs-6 text-gray-800">
+                                <th style="width:80%">Rol</th>
+                                <th style="width:20%" class="text-end">Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-rol" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-900px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModal">-</h2>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form" id="Form" novalidate>
+                    <input type="text" class="form-control d-none" id="txtId" required readonly />
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label">Rol</label>
+                            <input type="text" class="form-control text-uppercase letter" onkeyup="tools.toUpper(this);" placeholder="Nombre del rol" maxlength="255" name="rol" id="txtRol" autocomplete="off" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-end py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar </button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnSave"><i class='bi bi-check-lg fs-2'></i> Guardar </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal bg-body fade" tabindex="-1" id="modal-permissions">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content shadow-none">
+            <div class="modal-header">
+                <h2 class="modal-title" id="titleModalPermission"></h2>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-2x"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card card-xl-stretch shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">Aplicaciones</h3>
+                                <div class="table table-responsive scroll hover-scroll-y h-300px p-3">
+                                    <table class="table table-hover table-row-bordered">
+                                        <tbody id="tblAplications"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <h3 class="p-3 bg-primary text-uppercase text-white mt-2 mb-2">Modulos</h3>
+                        <div class="row scroll hover-scroll-y h-300px" id="content-module">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="button" class="btn btn-sm btn-primary" onclick="insertAppRol();"><i class='bi bi-check-lg fs-2'></i> Guardar cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/cats/roles.js"></script>
+    <script type="text/javascript">
+        document.onreadystatechange = function () {
+            if (document.readyState == "complete") {
+                init();
+            }
+        }
+    </script>
+}

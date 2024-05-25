@@ -1,0 +1,378 @@
+﻿@{
+    ViewData["Title"] = "CUENTA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row g-5 g-xl-10">
+    <div class="col-xl-12">
+        <div class="card">
+            <div id="kt_account_settings_signin_method" class="collapse show">
+                <div class="card-body border-top p-9">
+                    <div class="d-flex flex-wrap flex-sm-nowrap">
+                        <div class="me-7 mb-4">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                <img id="imgProfile" alt="image">
+                                <div class="row text-center mt-6">
+                                    <div class="col-12">
+                                        <button onclick="modalChangePhoto();" class="btn btn-sm btn-light btn-active-light-primary">Cambiar Foto</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            @*content-info*@
+                            <div class="d-flex flex-wrap align-items-center">
+                                <div class="kt_info_data mb-3">
+                                    <div class="fs-6 fw-bold mb-1">@ViewBag.Name</div>
+                                    <div class="fw-semibold text-gray-600">@ViewBag.Rol</div>
+                                </div>
+                                <div class="ms-auto mb-3">
+                                    <span class="badge badge-light-warning flex-shrink-0 align-self-center py-3 px-4 fs-7">Actividades Pendientes</span>
+                                    <span class="badge badge-light-success flex-shrink-0 align-self-center py-3 px-4 fs-7">Actividades Completadas</span>
+                                </div>
+                                <div class="kt_info_data">
+                                    <div class="fs-6 fw-bold mb-1">Autenticación en 2 pasos</div>
+                                    <small class="fw-semibold text-gray-600">
+                                        La autenticación en dos pasos es un proceso de seguridad que requiere dos formas diferentes de verificar la identidad de un usuario antes de permitir el acceso a una cuenta o sistema.
+                                        Esto añade una capa adicional de seguridad más allá de la simple contraseña.
+                                    </small>
+                                </div>
+                                <div class="ms-auto">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="form-check form-check-solid form-check-custom form-switch">
+                                            <input class="form-check-input w-45px h-30px" type="checkbox" id="chkTwoFactor">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="separator separator-dashed my-6"></div>
+                            @*content-email*@
+                            <div class="d-flex flex-wrap align-items-center">
+                                <div id="kt_signin_email">
+                                    <div class="fs-6 fw-bold mb-1">Correo electrónico</div>
+                                    <div class="fw-semibold text-gray-600">support@keenthemes.com</div>
+                                </div>
+                                <div id="kt_signin_email_edit" class="flex-row-fluid d-none animated fadeInDown">
+                                    <form id="FormEmail" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                                        <div class="row mb-6">
+                                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                                <div class="fv-row mb-0 fv-plugins-icon-container">
+                                                    <label class="form-label fs-6 fw-bold mb-3">Nuevo correo electrónico</label>
+                                                    <input type="email" class="form-control form-control-solid" name="emailAddress" id="txtNewEmail" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="fv-row mb-0 fv-plugins-icon-container">
+                                                    <label class="form-label fs-6 fw-bold mb-3">Confirmar contraseña</label>
+                                                    <input type="password" class="form-control form-control-solid" name="confirmPassword2" id="txtConfirmPassword2" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <button type="button" onclick="update_email();" class="btn btn-sm btn-primary  me-2 px-6">Actualizar correo electrónico</button>
+                                            <button type="button" onclick="closeEmail();" class="btn btn-sm btn-color-gray-400 btn-active-light-primary px-6">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="kt_signin_email_button" class="ms-auto">
+                                    <button onclick="resetEmail();" class="btn btn-sm btn-white btn-active-light-primary">Cambiar correo electrónico</button>
+                                </div>
+                            </div>
+                            <div class="separator separator-dashed my-6"></div>
+                            @*content-password*@
+                            <div class="d-flex flex-wrap align-items-center mb-10">
+                                <div id="kt_signin_password">
+                                    <div class="fs-6 fw-bold mb-1">Contraseña</div>
+                                    <div class="fw-semibold text-gray-600">************</div>
+                                </div>
+                                <div id="kt_signin_password_edit" class="flex-row-fluid d-none animated fadeInDown">
+                                    <form id="FormPassword" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                                        <div class="row mb-1">
+                                            <div class="col-lg-12">
+                                                <div class="fv-row mb-0 fv-plugins-icon-container">
+                                                    <label class="form-label fs-6 fw-passwordbold mb-3">Contraseña actual</label>
+                                                    <input type="password" class="form-control form-control-solid" name="" id="txtPassword" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-5">
+                                            <div class="col-lg-6">
+                                                <div class="fv-row mb-0 fv-plugins-icon-container">
+                                                    <label class="form-label fs-6 fw-bold mb-3">Nueva contraseña</label>
+                                                    <input type="password" class="form-control form-control-solid" name="newPassword" id="txtNewPassword" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="fv-row mb-0 fv-plugins-icon-container">
+                                                    <label class="form-label fs-6 fw-bold mb-3">Confirmar nueva contraseña</label>
+                                                    <input type="password" class="form-control form-control-solid" name="confirmPassword" id="txtConfirmPassword" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <button type="button" onclick="update_password();" class="btn btn-sm btn-primary me-2 px-6">Actualizar Contraseña</button>
+                                            <button type="button" onclick="closePassword();" class="btn btn-sm btn-color-gray-400 btn-active-light-primary px-6">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="kt_signin_password_button" class="ms-auto">
+                                    <button onclick="resetPassword();" class="btn btn-sm btn-white btn-active-light-primary">Restablecer contraseña</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x fs-6">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_2"><i class="fa fa-calendar"></i> Calendario de actividades</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12 col-lg-12">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label fw-bold text-dark">Rendimiento de personal</span>
+                                </h3>
+                            </div>
+                            <div class="card-body d-flex flex-column flex-center">
+                                <div class="mb-2 text-center">
+                                    <i class="fa fa-chart-line" style="font-size:80px"></i>
+                                </div>
+                                <div class="mb-1">
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="initGraph();">Ver Detalle de Rendimiento</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8">
+                        <div class="card h-md-100">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label fw-bold text-dark">Actividades</span>
+                                    <span class="text-muted mt-1 fw-semibold fs-7">Historial de actividades</span>
+                                </h3>
+                                <div id="card-toolbar" class="card-toolbar d-none">
+                                    <button type="button" class="btn btn-sm btn-light me-1" onclick="initFormItem();"><i class="fa fa-plus"></i> Nuevo item</button>
+                                    <button type="button" class="btn btn-sm btn-light" onclick="initFormActivity();"><i class="fa fa-plus"></i> Nueva actividad</button>
+                                </div>
+                            </div>
+                            <div class="card-body pt-7 px-0">
+                                <div class="table-responsive mb-8">
+                                    <ul id="content-items" class="nav nav-stretch nav-pills nav-pills-custom nav-pills-active-custom d-flex min-w-600px mb-3 px-5" role="tablist">
+                                    </ul>
+                                </div>
+                                
+                                <div class="scroll hover-scroll-y h-300px">
+                                    <div id="content-actividades" class="tab-content mb-2 px-9">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-item" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModal">-</h2>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form" id="FormItem" novalidate>
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label">Titulo</label>
+                            <input type="text" class="form-control" maxlength="50" placeholder="Titulo del item" name="item" id="txtItem" required autocomplete="off" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-end py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar </button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="insert_item();"><i class='bi bi-check-lg fs-2'></i> Guardar </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-activity" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModal2">-</h2>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form" id="FormActivity" novalidate>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label">Titulo</label>
+                            <input type="text" class="form-control" placeholder="Titulo del item" name="title_act" id="txtTitle" autocomplete="off" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-8">
+                            <label class="form-label">Asignar Usuario para esta actividad</label>
+                            <select class="form-control" id="cboUser"></select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Fecha de asignación</label>
+                            <input type="datetime-local" class="form-control" placeholder="08/02/2024" name="date_assigned" id="txtDateAssig" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label">Breve descripción de la actividad</label>
+                            <textarea class="form-control" rows="5" name="desc_activity" id="txtDescription" required></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-end py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar </button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="insert_act();"><i class='bi bi-check-lg fs-2'></i> Guardar </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal bg-body fade" tabindex="-1" id="modal-performance">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content shadow-none">
+            <div class="modal-header">
+                <h2 class="modal-title" id="titleModalPerformance"></h2>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-2x"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <label class="form-label">Estatus</label>
+                            <select class="form-control form-select-solid" id="cboStatus">
+                                <option value="PEN">PENDIENTE</option>
+                                <option value="COMP">COMPLETADAS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="separator my-2"></div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="statistic-box text-muted">
+                                <h4>
+                                    Totales de rendimiento del personal
+                                </h4>
+                                <p class="title-graph">
+                                    Representación grafica del rendimiento personal, dividido por concepto.
+                                </p>
+                                <div class="row text-center">
+                                    <div class="col-lg-6">
+                                        <canvas id="dgtDataEarring" width="150" height="200" style="margin: 18px auto 0"></canvas>
+                                        <h5>PENDIENTE</h5>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <canvas id="dgtDataComplete" width="150" height="200" style="margin: 18px auto 0"></canvas>
+                                        <h5>COMPLETADAS</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 bg-light p-10">
+                            <table class="table table-hover table-row-bordered">
+                                <thead>
+                                    <tr class="text-gray-800">
+                                        <th style="width:80%">Usuario</th>
+                                        <th style="width:20%" class="text-center">Total Actividades</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblLista"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-photo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-900px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="fw-bolder" data-kt-calendar="title" id="lblTitleModalPhoto">-</h2>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form" id="FormPhoto" enctype="multipart/form-data">
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <input type="file" class="form-control" name="photo" id="txtPhoto" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-end py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class='bi bi-x-lg fs-2'></i> Cerrar </button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="uploadImg();"><i class='bi bi-check-lg fs-2'></i> Cambiar Foto </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/profile/profile.js"></script>
+    <script src="~/js/profile/activity.js"></script>
+    <script src="~/js/_graph.js"></script>
+    <script type="text/javascript">
+        let photo_identity = "@ViewBag.Photo";
+        let user_id = "@ViewBag.User_id";
+        let rol = "@ViewBag.Rol";
+        document.onreadystatechange = function () {
+            if (document.readyState == "complete") {
+                init();
+                loadImg(user_id);
+                initActivity(rol);
+            }
+        }
+    </script>
+}
